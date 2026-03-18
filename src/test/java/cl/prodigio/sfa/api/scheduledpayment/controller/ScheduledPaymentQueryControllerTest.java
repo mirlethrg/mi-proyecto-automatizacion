@@ -29,7 +29,7 @@ class ScheduledPaymentQueryControllerTest {
         when(scheduledPaymentService.get(eq("PAY-123"), eq("PN"), eq("interaction-id"), eq("jws-signature")))
                 .thenReturn(response);
 
-        mockMvc.perform(get("/single-payments/v1/scheduled-payment/v1/PN/scheduled-payments/PAY-123")
+        mockMvc.perform(get("/scheduled-payments/v1/PN/scheduled-payments/PAY-123")
                         .header("x-fapi-interaction-id", "interaction-id")
                         .header("x-jws-signature", "jws-signature"))
                 .andExpect(status().isOk());
