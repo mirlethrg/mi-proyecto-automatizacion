@@ -37,7 +37,7 @@ class ScheduledPaymentPjControllerTest {
         when(scheduledPaymentService.createPj(eq("interaction-id"), eq("jws-signature"), any(PaymentsRequestPjDto.class), eq("idempotency-key")))
                 .thenReturn(response);
 
-        mockMvc.perform(post("/single-payments/v1/scheduled-payment/v1/PJ/scheduled-payments")
+        mockMvc.perform(post("/scheduled-payments/v1/PJ/scheduled-payments")
                         .header("x-fapi-interaction-id", "interaction-id")
                         .header("x-jws-signature", "jws-signature")
                         .header("x-idempotency-key", "idempotency-key")
