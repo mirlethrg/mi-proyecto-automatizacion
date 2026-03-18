@@ -1,0 +1,7 @@
+variables:
+  COVERAGE_ENABLED: true
+  UNIT_TEST_DISABLE: false
+include:
+  - project: "prodigio-master/centro-excelencia/devops/ci-template/gitlab-ci"
+    ref: main
+    file: "pipelines/java-mvn-helm-gke-deploy.pipeline.gitlab-ci.yml"

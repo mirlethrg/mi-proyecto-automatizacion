@@ -1,0 +1,37 @@
+# Default values for Prodigio Tech
+# This is YAML-formatted file.
+# Declare variablesto be passed intp your templates
+
+replicaCount: 1
+
+fullnameOverride: "api-scheduled-payment"
+namespace: operations-and-execution
+
+image:
+  repository: ""
+  pullPolicy: IfNotPresent
+  tag: ""
+  command:
+    - java
+    - -jar
+    - "app.jar"
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+
+virtualService:
+  enabled: true
+  gateways:
+    - istio-gateway/api-internal-gateway
+
+# # if use database
+# db:
+#   enabled: true
+
+# # if use redis
+# redis:
+#   enabled: true

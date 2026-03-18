@@ -1,0 +1,747 @@
+openapi: 3.0.0
+info:
+  title: Pago Único Inmediato - Open Finance Chile
+  version: 1.0.0
+  description: API para la creación y consulta de órdenes de pago único inmediato.
+servers:
+  - url: https://api.banco.cl/single-payments/v1
+    description: Servidor de producción
+security:
+  - bearerAuth: []
+paths:
+  /PN/single-payments:
+    post:
+      summary: Crea una orden de pago único inmediato (Persona Natural)
+      parameters:
+        - name: x-fapi-interaction-id
+          in: header
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID de correlación generado por el PSIP.
+        - name: x-jws-signature
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Firma JWS del cuerpo de la petición.
+        - name: x-idempotency-key
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Clave única para evitar duplicados en reintentos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentsRequestPN'
+      responses:
+        '201':
+          description: Created – Orden de pago registrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentsResponsePN'
+        '400':
+          description: Bad Request – Parámetros faltantes o mal formados.
+        '404':
+          description: Not Found – paymentID inexistente o fuera del consentimiento.
+        '405':
+          description: Method Not Allowed – Verbo HTTP no permitido.
+        '429':
+          description: Too Many Requests – Se superó el límite de llamadas.
+        '500':
+          description: Internal Server Error – Error interno del Data Holder.
+        '504':
+          description: Gateway Timeout – Tiempo de espera excedido.
+        '529':
+          description: Site Is Overloaded – Servicio sobrecargado.
+
+  /PN/single-payments/{paymentId}:
+    get:
+      summary: Consulta el estado y los datos de la orden de pago (Persona Natural)
+      parameters:
+        - name: paymentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: identificador único del pago.
+        - name: x-fapi-interaction-id
+          in: header
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID de correlación generado por el PSIP.
+        - name: x-jws-signature
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Firma JWS del cuerpo de la petición.
+      responses:
+        '200':
+          description: OK – Consulta exitosa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentsResponsePN'
+        '400':
+          description: Bad Request – Parámetros faltantes o mal formados.
+        '404':
+          description: Not Found – paymentID inexistente o fuera del consentimiento.
+        '405':
+          description: Method Not Allowed – Verbo HTTP no permitido.
+        '429':
+          description: Too Many Requests – Se superó el límite de llamadas.
+        '500':
+          description: Internal Server Error – Error interno del Data Holder.
+        '504':
+          description: Gateway Timeout – Tiempo de espera excedido.
+        '529':
+          description: Site Is Overloaded – Servicio sobrecargado.
+
+  /PJ/single-payments:
+    post:
+      summary: Crea una orden de pago único inmediato (Persona Jurídica)
+      parameters:
+        - name: x-fapi-interaction-id
+          in: header
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID de correlación generado por el PSIP.
+        - name: x-jws-signature
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Firma JWS del cuerpo de la petición.
+        - name: x-idempotency-key
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Clave única para evitar duplicados en reintentos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentsRequestPJ'
+      responses:
+        '201':
+          description: Created – Orden de pago registrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentsResponsePJ'
+        '400':
+          description: Bad Request – Parámetros faltantes o mal formados.
+        '404':
+          description: Not Found – paymentID inexistente o fuera del consentimiento.
+        '405':
+          description: Method Not Allowed – Verbo HTTP no permitido.
+        '429':
+          description: Too Many Requests – Se superó el límite de llamadas.
+        '500':
+          description: Internal Server Error – Error interno del Data Holder.
+        '504':
+          description: Gateway Timeout – Tiempo de espera excedido.
+        '529':
+          description: Site Is Overloaded – Servicio sobrecargado.
+
+  /PJ/single-payments/{paymentId}:
+    get:
+      summary: Consulta el estado y los datos de la orden de pago (Persona Jurídica)
+      parameters:
+        - name: paymentId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: identificador único del pago.
+        - name: x-fapi-interaction-id
+          in: header
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID de correlación generado por el PSIP.
+        - name: x-jws-signature
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Firma JWS del cuerpo de la petición.
+      responses:
+        '200':
+          description: OK – Consulta exitosa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentsResponsePJ'
+        '400':
+          description: Bad Request – Parámetros faltantes o mal formados.
+        '404':
+          description: Not Found – paymentID inexistente o fuera del consentimiento.
+        '405':
+          description: Method Not Allowed – Verbo HTTP no permitido.
+        '429':
+          description: Too Many Requests – Se superó el límite de llamadas.
+        '500':
+          description: Internal Server Error – Error interno del Data Holder.
+        '504':
+          description: Gateway Timeout – Tiempo de espera excedido.
+        '529':
+          description: Site Is Overloaded – Servicio sobrecargado.
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    PaymentsRequestPN:
+      type: object
+      properties:
+        paymentsRequest:
+          $ref: '#/components/schemas/PaymentsRequestDataPN'
+      required:
+        - paymentsRequest
+
+    PaymentsRequestDataPN:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PaymentsDataPN'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /v1/PN/single-payments
+        meta:
+          type: object
+          properties:
+            firstAvailableDateTime:
+              type: string
+              format: date-time
+              example: 2025-10-03T10:30:00Z
+      required:
+        - data
+
+    PaymentsDataPN:
+      type: object
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SinglePaymentPN'
+      required:
+        - payments
+
+    SinglePaymentPN:
+      type: object
+      properties:
+        grantId:
+          type: string
+          format: uuid
+          example: 8e65e3e5-2d5b-4a2a-9c1f-1f2e3d4c5b6a
+          description: Vincula la orden con el consentimiento otorgado
+        transactionType:
+          type: string
+          example: TEF_SINGLE_IMMEDIATE
+          description: Enumerado para pago único inmediato
+        debtorInstitutionId:
+          type: string
+          example: "14"
+          description: Código de la institución financiera del ordenante (CMF/SBIF)
+        debtorName:
+          type: string
+          example: JUAN PÉREZ
+          description: Persona Natural o Jurídica
+        debtorAccountNumber:
+          type: string
+          example: "123456789"
+          description: Nº cuenta del ordenante
+        debtorAccountType:
+          type: string
+          example: CHECKING
+          description: Tipo de cuenta del ordenante
+        debtorIdentification:
+          type: string
+          example: 12.345.678-9
+          description: Identificación del ordenante
+        creditorInstitutionId:
+          type: string
+          example: "1"
+          description: Código de la institución financiera del beneficiario
+        creditorAccountNumber:
+          type: string
+          example: "9876543210"
+          description: Número de cuenta destino
+        creditorAccountType:
+          type: string
+          example: CHECKING
+          description: Tipo de cuenta del beneficiario
+        creditorName:
+          type: string
+          example: ROBERTO PONCE
+          description: Nombre completo del beneficiario
+        creditorIdentification:
+          type: string
+          example: 11.222.333-4
+          description: RUN/RUT/ID del beneficiario
+        amount:
+          type: number
+          example: 150000
+          description: Valor de la operación
+        currency:
+          type: string
+          example: CLP
+          description: Moneda ISO 4217
+        requestedExecutionDateTime:
+          type: string
+          format: date-time
+          example: 2025-11-15T15:00:00Z
+          description: Fecha programada de ejecución (ISO 8601 UTC)
+        executionWindow:
+          type: object
+          properties:
+            from:
+              type: string
+              format: date-time
+              example: 2025-11-15T10:00:00Z
+            to:
+              type: string
+              format: date-time
+              example: 2025-11-15T18:00:00Z
+          description: Rango opcional de ejecución
+        endToEndId:
+          type: string
+          example: E2E-2025-00000123
+          description: Identificador para conciliación
+        remittanceInformation:
+          type: string
+          example: Pago de servicios
+          description: Motivo del pago
+        requestDateTime:
+          type: string
+          format: date-time
+          example: 2025-10-03T10:30:00Z
+          description: Marca de tiempo del PSIP
+      required:
+        - grantId
+        - transactionType
+        - debtorInstitutionId
+        - debtorName
+        - creditorInstitutionId
+        - creditorAccountNumber
+        - creditorAccountType
+        - creditorName
+        - creditorIdentification
+        - amount
+        - currency
+        - requestedExecutionDateTime
+        - requestDateTime
+
+    PaymentsResponsePN:
+      type: object
+      properties:
+        paymentsResponse:
+          $ref: '#/components/schemas/PaymentsResponseDataPN'
+
+    PaymentsResponseDataPN:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            payments:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentResponseItemPN'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /v1/PN/single-payments
+        meta:
+          type: object
+          properties:
+            totalPages:
+              type: integer
+              example: 1
+            firstAvailableDateTime:
+              type: string
+              format: date-time
+              example: 2025-10-03T10:30:00Z
+            lastAvailableDateTime:
+              type: string
+              format: date-time
+              example: 2025-10-03T10:30:05Z
+
+    PaymentResponseItemPN:
+      type: object
+      properties:
+        paymentId:
+          type: string
+          example: PAY-20250001
+          description: ID generado por IPI/IPC para rastrear la orden
+        grantId:
+          type: string
+          format: uuid
+          example: 8e65e3e5-2d5b-4a2a-9c1f-1f2e3d4c5b6a
+          description: Eco del consentimiento utilizado
+        creationDateTime:
+          type: string
+          format: date-time
+          example: 2025-10-03T10:30:00Z
+          description: Alta de la orden
+        statusUpdateDateTime:
+          type: string
+          format: date-time
+          example: 2025-10-03T10:30:05Z
+          description: Última actualización del estado
+        requestedExecutionDateTime:
+          type: string
+          format: date-time
+          example: 2025-11-15T15:00:00Z
+          description: Réplica de la fecha solicitada
+        expectedExecutionDateTime:
+          type: string
+          format: date-time
+          example: 2025-11-15T15:00:05Z
+          description: Estimación operativa
+        expectedSettlementDateTime:
+          type: string
+          format: date-time
+          example: 2025-11-15T15:10:00Z
+          description: Estimación de compensación/liquidación
+        paymentStatus:
+          type: string
+          example: EXECUTED
+          description: "Enum: RECEIVED, PENDING_APPROVAL, EXECUTED, REJECTED, CANCELLED, EXPIRED"
+        transactionType:
+          type: string
+          example: TEF_SINGLE_IMMEDIATE
+          description: Naturaleza de la operación
+        endToEndId:
+          type: string
+          example: E2E-2025-000000123
+          description: Para conciliación entre instituciones
+        bankTrackingId:
+          type: string
+          example: BNK-ABC-9991
+          description: Identificador interno de la IPI/IPC
+        debtorInstitutionId:
+          type: string
+          example: "14"
+        debtorName:
+          type: string
+          example: JUAN PÉREZ
+        debtorAccountNumber:
+          type: string
+          example: "123456789"
+        debtorAccountType:
+          type: string
+          example: CHECKING
+        debtorIdentification:
+          type: string
+          example: 12.345.678-9
+        creditorInstitutionId:
+          type: string
+          example: "1"
+        creditorAccountNumber:
+          type: string
+          example: "9876543210"
+        creditorAccountType:
+          type: string
+          example: CHECKING
+        creditorName:
+          type: string
+          example: ROBERTO PONCE
+        creditorIdentification:
+          type: string
+          example: 11.222.333-4
+        amount:
+          type: number
+          example: 150000
+        currency:
+          type: string
+          example: CLP
+        remittanceInformation:
+          type: string
+          example: Pago de servicios
+
+    PaymentsRequestPJ:
+      type: object
+      properties:
+        paymentsRequest:
+          $ref: '#/components/schemas/PaymentsRequestDataPJ'
+      required:
+        - paymentsRequest
+
+    PaymentsRequestDataPJ:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PaymentsDataPJ'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /v1/PJ/single-payments
+        meta:
+          type: object
+          properties:
+            firstAvailableDateTime:
+              type: string
+              format: date-time
+              example: 2025-10-03T10:30:00Z
+      required:
+        - data
+
+    PaymentsDataPJ:
+      type: object
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SinglePaymentPJ'
+      required:
+        - payments
+
+    SinglePaymentPJ:
+      type: object
+      properties:
+        grantId:
+          type: string
+          format: uuid
+          example: 8e65e3e5-2d5b-4a2a-9c1f-1f2e3d4c5b6a
+        transactionType:
+          type: string
+          example: TEF_SINGLE_IMMEDIATE
+        debtorInstitutionId:
+          type: string
+          example: "14"
+        debtorName:
+          type: string
+          example: EMPRESA ABC S.A.
+        debtorIdentification:
+          type: string
+          example: 76.123.456-7
+        debtorAccountType:
+          type: string
+          example: CHECKING
+        debtorAccountNumber:
+          type: string
+          example: "123456789"
+        debtorRepresentativeName:
+          type: string
+          example: MARÍA GONZÁLEZ
+          description: Nombre del apoderado
+        debtorRepresentativeId:
+          type: string
+          example: 9.876.543-2
+          description: RUN del apoderado
+        debtorRepresentativeRole:
+          type: string
+          example: APODERADO
+          description: Rol del apoderado
+        creditorInstitutionId:
+          type: string
+          example: "1"
+        creditorAccountNumber:
+          type: string
+          example: "9876543210"
+        creditorAccountType:
+          type: string
+          example: CHECKING
+        creditorName:
+          type: string
+          example: PROVEEDORES XYZ LTDA.
+        creditorIdentification:
+          type: string
+          example: 11.222.333-4
+        amount:
+          type: number
+          example: 150000
+        currency:
+          type: string
+          example: CLP
+        requestedExecutionDateTime:
+          type: string
+          format: date-time
+          example: 2025-11-15T15:00:00Z
+        endToEndId:
+          type: string
+          example: E2E-2025-00000567
+        remittanceInformation:
+          type: string
+          example: Pago de servicios
+        requestDateTime:
+          type: string
+          format: date-time
+          example: 2025-10-03T10:30:00Z
+      required:
+        - grantId
+        - transactionType
+        - debtorInstitutionId
+        - debtorName
+        - creditorInstitutionId
+        - creditorAccountNumber
+        - creditorAccountType
+        - creditorName
+        - creditorIdentification
+        - amount
+        - currency
+        - requestedExecutionDateTime
+        - requestDateTime
+
+    PaymentsResponsePJ:
+      type: object
+      properties:
+        paymentsResponse:
+          $ref: '#/components/schemas/PaymentsResponseDataPJ'
+
+    PaymentsResponseDataPJ:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            payments:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentResponseItemPJ'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              example: /v1/PJ/single-payments/PAY-20250001
+        meta:
+          type: object
+          properties:
+            totalPages:
+              type: integer
+              example: 1
+            firstAvailableDateTime:
+              type: string
+              format: date-time
+              example: 2025-10-03T10:30:00Z
+            lastAvailableDateTime:
+              type: string
+              format: date-time
+              example: 2025-10-03T10:30:05Z
+
+    PaymentResponseItemPJ:
+      type: object
+      properties:
+        paymentId:
+          type: string
+          example: PAY-20250001
+        grantId:
+          type: string
+          format: uuid
+          example: 8e65e3e5-2d5b-4a2a-9c1f-1f2e3d4c5b6a
+        creationDateTime:
+          type: string
+          format: date-time
+          example: 2025-10-03T10:30:00Z
+        statusUpdateDateTime:
+          type: string
+          format: date-time
+          example: 2025-10-03T10:30:05Z
+        requestedExecutionDateTime:
+          type: string
+          format: date-time
+          example: 2025-11-15T15:00:00Z
+        expectedExecutionDateTime:
+          type: string
+          format: date-time
+          example: 2025-11-15T15:00:05Z
+        expectedSettlementDateTime:
+          type: string
+          format: date-time
+          example: 2025-11-15T15:10:00Z
+        paymentStatus:
+          type: string
+          example: EXECUTED
+          description: "Enum: RECEIVED, PENDING_APPROVAL, EXECUTED, REJECTED, CANCELLED, EXPIRED"
+        statusReason:
+          type: object
+          properties:
+            code:
+              type: string
+              example: "2101"
+            description:
+              type: string
+              example: En espera de firma del apoderado
+            category:
+              type: string
+              example: AUTHZ
+        transactionType:
+          type: string
+          example: TEF_SINGLE_IMMEDIATE
+        endToEndId:
+          type: string
+          example: E2E-2025-000000123
+        bankTrackingId:
+          type: string
+          example: BNK-ABC-9991
+        debtorInstitutionId:
+          type: string
+          example: "14"
+        debtorAccountNumber:
+          type: string
+          example: "123456789"
+        debtorAccountType:
+          type: string
+          example: CHECKING
+        debtorName:
+          type: string
+          example: EMPRESA ABC S.A.
+        debtorIdentification:
+          type: string
+          example: 76.123.456-7
+        debtorRepresentativeId:
+          type: string
+          example: 9.876.543-2
+        debtorRepresentativeRole:
+          type: string
+          example: APODERADO
+        creditorInstitutionId:
+          type: string
+          example: "1"
+        creditorAccountNumber:
+          type: string
+          example: "9876543210"
+        creditorAccountType:
+          type: string
+          example: CHECKING
+        creditorName:
+          type: string
+          example: PROVEEDORES XYZ LTDA.
+        creditorIdentification:
+          type: string
+          example: 11.222.333-4
+        amount:
+          type: number
+          example: 150000
+        currency:
+          type: string
+          example: CLP
+        remittanceInformation:
+          type: string
+          example: Pago de servicios
