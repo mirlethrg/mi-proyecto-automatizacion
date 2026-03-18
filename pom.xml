@@ -82,6 +82,13 @@
     </dependency>
   </dependencies>
 
+  <repositories>
+    <repository>
+      <id>private-registry</id>
+      <url>${env.MAVEN_REGISTRY}</url>
+    </repository>
+  </repositories>
+
   <build>
     <plugins>
       <plugin>
