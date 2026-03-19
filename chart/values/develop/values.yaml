@@ -1,6 +1,6 @@
 envVars:
   - name: MS_SCHEDULED_PAYMENT_BASE_URL
-    value: "https://api-dev.sfa.prodigio.tech/ms-scheduled-payment/scheduled-payments/v1"
+    value: "https://ms-scheduled-payment.operations-and-execution/scheduled-payments/v1"
   - name: MS_SCHEDULED_PAYMENT_TIMEOUT
     value: "10000"
 
