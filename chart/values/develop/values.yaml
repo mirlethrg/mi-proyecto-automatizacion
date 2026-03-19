@@ -1,7 +1,7 @@
 envVars:
-  - name: MS_SINGLE_PAYMENTS_IMMEDIATE_PAYMENT_BASE_URL
-    value: "https://api-dev.sfa.prodigio.tech/ms-scheduled-payment/single-payments/v1/scheduled-payment"
-  - name: MS_SINGLE_PAYMENTS_IMMEDIATE_TIMEOUT
+  - name: MS_SCHEDULED_PAYMENT_BASE_URL
+    value: "https://api-dev.sfa.prodigio.tech/ms-scheduled-payment/scheduled-payments/v1"
+  - name: MS_SCHEDULED_PAYMENT_TIMEOUT
     value: "10000"
 
 serviceAccount:
