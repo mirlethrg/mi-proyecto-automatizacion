@@ -29,7 +29,7 @@ class VariableRecurringPaymentServiceImplTest {
         PaymentsRequestPnDto request = PaymentsRequestPnDto.builder().build();
         PaymentsResponsePnDto expectedResponse = PaymentsResponsePnDto.builder().build();
 
-        when(integrationService.createPn("interaction-id", "signature", request, "idempotency-key"))
+        when(integrationService.createVariableRecurringPn("interaction-id", "signature", request, "idempotency-key"))
                 .thenReturn(expectedResponse);
 
         PaymentsResponsePnDto actualResponse = variableRecurringPaymentService.createPn("interaction-id", "signature", request, "idempotency-key");
@@ -42,7 +42,7 @@ class VariableRecurringPaymentServiceImplTest {
         PaymentsRequestPjDto request = PaymentsRequestPjDto.builder().build();
         PaymentsResponsePjDto expectedResponse = PaymentsResponsePjDto.builder().build();
 
-        when(integrationService.createPj("interaction-id", "signature", request, "idempotency-key"))
+        when(integrationService.createVariableRecurringPj("interaction-id", "signature", request, "idempotency-key"))
                 .thenReturn(expectedResponse);
 
         PaymentsResponsePjDto actualResponse = variableRecurringPaymentService.createPj("interaction-id", "signature", request, "idempotency-key");
@@ -54,7 +54,7 @@ class VariableRecurringPaymentServiceImplTest {
     void get_ShouldReturnResponse() {
         VariableRecurringPaymentDetailResponseDto expectedResponse = VariableRecurringPaymentDetailResponseDto.builder().build();
 
-        when(integrationService.get("PAY-123", "PN", "interaction-id", "signature"))
+        when(integrationService.getVariableRecurringPayment("PAY-123", "PN", "interaction-id", "signature"))
                 .thenReturn(expectedResponse);
 
         VariableRecurringPaymentDetailResponseDto actualResponse = variableRecurringPaymentService.get("PAY-123", "PN", "interaction-id", "signature");

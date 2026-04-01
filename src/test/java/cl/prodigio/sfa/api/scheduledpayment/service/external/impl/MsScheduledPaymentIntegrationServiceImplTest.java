@@ -35,36 +35,36 @@ class MsScheduledPaymentIntegrationServiceImplTest {
     }
 
     @Test
-    void createPn_ShouldReturnResponse() {
+    void createScheduledPn_ShouldReturnResponse() {
         PaymentsRequestPnDto request = PaymentsRequestPnDto.builder().build();
         PaymentsResponsePnDto expectedResponse = PaymentsResponsePnDto.builder().build();
 
         when(httpClientService.postInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        PaymentsResponsePnDto actualResponse = integrationService.createPn("interaction-id", "signature", request, "idempotency-key");
+        PaymentsResponsePnDto actualResponse = integrationService.createScheduledPn("interaction-id", "signature", request, "idempotency-key");
 
         assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
-    void createPj_ShouldReturnResponse() {
+    void createScheduledPj_ShouldReturnResponse() {
         PaymentsRequestPjDto request = PaymentsRequestPjDto.builder().build();
         PaymentsResponsePjDto expectedResponse = PaymentsResponsePjDto.builder().build();
 
         when(httpClientService.postInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        PaymentsResponsePjDto actualResponse = integrationService.createPj("interaction-id", "signature", request, "idempotency-key");
+        PaymentsResponsePjDto actualResponse = integrationService.createScheduledPj("interaction-id", "signature", request, "idempotency-key");
 
         assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
-    void get_ShouldReturnResponse() {
+    void getScheduledPayment_ShouldReturnResponse() {
         PaymentDetailResponseDto expectedResponse = PaymentDetailResponseDto.builder().build();
 
         when(httpClientService.getInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        PaymentDetailResponseDto actualResponse = integrationService.get("PAY-123", "PN", "interaction-id", "signature");
+        PaymentDetailResponseDto actualResponse = integrationService.getScheduledPayment("PAY-123", "PN", "interaction-id", "signature");
 
         assertEquals(expectedResponse, actualResponse);
     }

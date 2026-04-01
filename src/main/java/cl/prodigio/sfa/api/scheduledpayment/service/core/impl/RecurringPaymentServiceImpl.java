@@ -20,16 +20,16 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 
     @Override
     public PaymentsResponsePnDto createPn(String interactionId, String jwsSignature, PaymentsRequestPnDto request, String idempotencyKey) {
-        return integrationService.createPn(interactionId, jwsSignature, request, idempotencyKey);
+        return integrationService.createRecurringPn(interactionId, jwsSignature, request, idempotencyKey);
     }
 
     @Override
     public PaymentsResponsePjDto createPj(String interactionId, String jwsSignature, PaymentsRequestPjDto request, String idempotencyKey) {
-        return integrationService.createPj(interactionId, jwsSignature, request, idempotencyKey);
+        return integrationService.createRecurringPj(interactionId, jwsSignature, request, idempotencyKey);
     }
 
     @Override
     public RecurringPaymentDetailResponseDto get(String paymentId, String participantType, String interactionId, String jwsSignature) {
-        return integrationService.get(paymentId, participantType, interactionId, jwsSignature);
+        return integrationService.getRecurringPayment(paymentId, participantType, interactionId, jwsSignature);
     }
 }
