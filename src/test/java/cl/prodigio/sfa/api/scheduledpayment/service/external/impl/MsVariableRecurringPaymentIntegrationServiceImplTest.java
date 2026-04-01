@@ -35,36 +35,36 @@ class MsVariableRecurringPaymentIntegrationServiceImplTest {
     }
 
     @Test
-    void createPn_ShouldReturnResponse() {
+    void createVariableRecurringPn_ShouldReturnResponse() {
         PaymentsRequestPnDto request = PaymentsRequestPnDto.builder().build();
         PaymentsResponsePnDto expectedResponse = PaymentsResponsePnDto.builder().build();
 
         when(httpClientService.postInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        PaymentsResponsePnDto actualResponse = integrationService.createPn("interaction-id", "signature", request, "idempotency-key");
+        PaymentsResponsePnDto actualResponse = integrationService.createVariableRecurringPn("interaction-id", "signature", request, "idempotency-key");
 
         assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
-    void createPj_ShouldReturnResponse() {
+    void createVariableRecurringPj_ShouldReturnResponse() {
         PaymentsRequestPjDto request = PaymentsRequestPjDto.builder().build();
         PaymentsResponsePjDto expectedResponse = PaymentsResponsePjDto.builder().build();
 
         when(httpClientService.postInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        PaymentsResponsePjDto actualResponse = integrationService.createPj("interaction-id", "signature", request, "idempotency-key");
+        PaymentsResponsePjDto actualResponse = integrationService.createVariableRecurringPj("interaction-id", "signature", request, "idempotency-key");
 
         assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
-    void get_ShouldReturnResponse() {
+    void getVariableRecurringPayment_ShouldReturnResponse() {
         VariableRecurringPaymentDetailResponseDto expectedResponse = VariableRecurringPaymentDetailResponseDto.builder().build();
 
         when(httpClientService.getInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        VariableRecurringPaymentDetailResponseDto actualResponse = integrationService.get("PAY-123", "PN", "interaction-id", "signature");
+        VariableRecurringPaymentDetailResponseDto actualResponse = integrationService.getVariableRecurringPayment("PAY-123", "PN", "interaction-id", "signature");
 
         assertEquals(expectedResponse, actualResponse);
     }

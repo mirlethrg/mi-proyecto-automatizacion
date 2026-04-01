@@ -29,7 +29,7 @@ class ScheduledPaymentServiceImplTest {
         PaymentsRequestPnDto request = PaymentsRequestPnDto.builder().build();
         PaymentsResponsePnDto expectedResponse = PaymentsResponsePnDto.builder().build();
 
-        when(integrationService.createPn("interaction-id", "signature", request, "idempotency-key"))
+        when(integrationService.createScheduledPn("interaction-id", "signature", request, "idempotency-key"))
                 .thenReturn(expectedResponse);
 
         PaymentsResponsePnDto actualResponse = scheduledPaymentService.createPn("interaction-id", "signature", request, "idempotency-key");
@@ -42,7 +42,7 @@ class ScheduledPaymentServiceImplTest {
         PaymentsRequestPjDto request = PaymentsRequestPjDto.builder().build();
         PaymentsResponsePjDto expectedResponse = PaymentsResponsePjDto.builder().build();
 
-        when(integrationService.createPj("interaction-id", "signature", request, "idempotency-key"))
+        when(integrationService.createScheduledPj("interaction-id", "signature", request, "idempotency-key"))
                 .thenReturn(expectedResponse);
 
         PaymentsResponsePjDto actualResponse = scheduledPaymentService.createPj("interaction-id", "signature", request, "idempotency-key");
@@ -54,7 +54,7 @@ class ScheduledPaymentServiceImplTest {
     void get_ShouldReturnResponse() {
         PaymentDetailResponseDto expectedResponse = PaymentDetailResponseDto.builder().build();
 
-        when(integrationService.get("PAY-123", "PN", "interaction-id", "signature"))
+        when(integrationService.getScheduledPayment("PAY-123", "PN", "interaction-id", "signature"))
                 .thenReturn(expectedResponse);
 
         PaymentDetailResponseDto actualResponse = scheduledPaymentService.get("PAY-123", "PN", "interaction-id", "signature");

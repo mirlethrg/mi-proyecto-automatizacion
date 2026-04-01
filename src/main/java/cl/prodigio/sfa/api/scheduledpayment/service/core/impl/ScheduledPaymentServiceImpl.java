@@ -20,16 +20,16 @@ public class ScheduledPaymentServiceImpl implements ScheduledPaymentService {
 
     @Override
     public PaymentsResponsePnDto createPn(String interactionId, String jwsSignature, PaymentsRequestPnDto request, String idempotencyKey) {
-        return integrationService.createPn(interactionId, jwsSignature, request, idempotencyKey);
+        return integrationService.createScheduledPn(interactionId, jwsSignature, request, idempotencyKey);
     }
 
     @Override
     public PaymentsResponsePjDto createPj(String interactionId, String jwsSignature, PaymentsRequestPjDto request, String idempotencyKey) {
-        return integrationService.createPj(interactionId, jwsSignature, request, idempotencyKey);
+        return integrationService.createScheduledPj(interactionId, jwsSignature, request, idempotencyKey);
     }
 
     @Override
     public PaymentDetailResponseDto get(String paymentId, String participantType, String interactionId, String jwsSignature) {
-        return integrationService.get(paymentId, participantType, interactionId, jwsSignature);
+        return integrationService.getScheduledPayment(paymentId, participantType, interactionId, jwsSignature);
     }
 }

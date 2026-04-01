@@ -35,36 +35,36 @@ class MsRecurringPaymentIntegrationServiceImplTest {
     }
 
     @Test
-    void createPn_ShouldReturnResponse() {
+    void createRecurringPn_ShouldReturnResponse() {
         PaymentsRequestPnDto request = PaymentsRequestPnDto.builder().build();
         PaymentsResponsePnDto expectedResponse = PaymentsResponsePnDto.builder().build();
 
         when(httpClientService.postInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        PaymentsResponsePnDto actualResponse = integrationService.createPn("interaction-id", "signature", request, "idempotency-key");
+        PaymentsResponsePnDto actualResponse = integrationService.createRecurringPn("interaction-id", "signature", request, "idempotency-key");
 
         assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
-    void createPj_ShouldReturnResponse() {
+    void createRecurringPj_ShouldReturnResponse() {
         PaymentsRequestPjDto request = PaymentsRequestPjDto.builder().build();
         PaymentsResponsePjDto expectedResponse = PaymentsResponsePjDto.builder().build();
 
         when(httpClientService.postInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        PaymentsResponsePjDto actualResponse = integrationService.createPj("interaction-id", "signature", request, "idempotency-key");
+        PaymentsResponsePjDto actualResponse = integrationService.createRecurringPj("interaction-id", "signature", request, "idempotency-key");
 
         assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
-    void get_ShouldReturnResponse() {
+    void getRecurringPayment_ShouldReturnResponse() {
         RecurringPaymentDetailResponseDto expectedResponse = RecurringPaymentDetailResponseDto.builder().build();
 
         when(httpClientService.getInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        RecurringPaymentDetailResponseDto actualResponse = integrationService.get("PAY-123", "PJ", "interaction-id", "signature");
+        RecurringPaymentDetailResponseDto actualResponse = integrationService.getRecurringPayment("PAY-123", "PJ", "interaction-id", "signature");
 
         assertEquals(expectedResponse, actualResponse);
     }
