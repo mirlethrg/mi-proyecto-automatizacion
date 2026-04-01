@@ -1,11 +1,11 @@
 package cl.prodigio.sfa.api.scheduledpayment.service.external.impl;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentDetailResponseDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentsResponsePnDto;
-import cl.prodigio.sfa.api.scheduledpayment.service.external.MsScheduledPaymentIntegrationService;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.PaymentsRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.PaymentsRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.PaymentsResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariableRecurringPaymentDetailResponseDto;
+import cl.prodigio.sfa.api.scheduledpayment.service.external.MsVariableRecurringPaymentIntegrationService;
 import cl.prodigio.sfa.core.services.http.HttpClientService;
 import cl.prodigio.sfa.core.services.http.HttpRequestDto;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -20,11 +20,11 @@ import java.time.Duration;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MsScheduledPaymentIntegrationServiceImpl implements MsScheduledPaymentIntegrationService {
+public class MsVariableRecurringPaymentIntegrationServiceImpl implements MsVariableRecurringPaymentIntegrationService {
 
     private final HttpClientService httpClientService;
 
-    @Value("${ms.scheduled.payment.base.url}")
+    @Value("${ms.variable.recurring.payment.base.url}")
     private String baseUrl;
 
     @Value("${ms.timeout}")
@@ -32,8 +32,8 @@ public class MsScheduledPaymentIntegrationServiceImpl implements MsScheduledPaym
 
     @Override
     public PaymentsResponsePnDto createPn(String interactionId, String jwsSignature, PaymentsRequestPnDto request, String idempotencyKey) {
-        log.info("Forwarding PN scheduled payment to MS with interactionId {} and idempotencyKey {}", interactionId, idempotencyKey);
-        String url = baseUrl + "/PN/scheduled-payments";
+        log.info("Forwarding PN variable recurring payment to MS with interactionId {} and idempotencyKey {}", interactionId, idempotencyKey);
+        String url = baseUrl + "/PN/variable-recurring-payments";
 
         HttpHeaders headers = createHeaders(interactionId, jwsSignature, idempotencyKey);
 
@@ -44,7 +44,7 @@ public class MsScheduledPaymentIntegrationServiceImpl implements MsScheduledPaym
                 .timeout(Duration.ofMillis(connectionTimeout))
                 .responseType(new TypeReference<>() {
                 })
-                .baseLog("MsScheduledPaymentIntegrationService.createPn")
+                .baseLog("MsVariableRecurringPaymentIntegrationService.createPn")
                 .build();
 
         return httpClientService.postInternal(req);
@@ -52,8 +52,8 @@ public class MsScheduledPaymentIntegrationServiceImpl implements MsScheduledPaym
 
     @Override
     public PaymentsResponsePjDto createPj(String interactionId, String jwsSignature, PaymentsRequestPjDto request, String idempotencyKey) {
-        log.info("Forwarding PJ scheduled payment to MS with interactionId {} and idempotencyKey {}", interactionId, idempotencyKey);
-        String url = baseUrl + "/PJ/scheduled-payments";
+        log.info("Forwarding PJ variable recurring payment to MS with interactionId {} and idempotencyKey {}", interactionId, idempotencyKey);
+        String url = baseUrl + "/PJ/variable-recurring-payments";
 
         HttpHeaders headers = createHeaders(interactionId, jwsSignature, idempotencyKey);
 
@@ -64,26 +64,26 @@ public class MsScheduledPaymentIntegrationServiceImpl implements MsScheduledPaym
                 .timeout(Duration.ofMillis(connectionTimeout))
                 .responseType(new TypeReference<>() {
                 })
-                .baseLog("MsScheduledPaymentIntegrationService.createPj")
+                .baseLog("MsVariableRecurringPaymentIntegrationService.createPj")
                 .build();
 
         return httpClientService.postInternal(req);
     }
 
     @Override
-    public PaymentDetailResponseDto get(String paymentId, String participantType, String interactionId, String jwsSignature) {
+    public VariableRecurringPaymentDetailResponseDto get(String paymentId, String participantType, String interactionId, String jwsSignature) {
         log.info("Forwarding query for {} and participantType {} to MS", paymentId, participantType);
-        String url = baseUrl + "/" + participantType + "/scheduled-payments/" + paymentId;
+        String url = baseUrl + "/" + participantType + "/variable-recurring-payments/" + paymentId;
 
         HttpHeaders headers = createHeaders(interactionId, jwsSignature, null);
 
-        var req = HttpRequestDto.<Void, PaymentDetailResponseDto>builder()
+        var req = HttpRequestDto.<Void, VariableRecurringPaymentDetailResponseDto>builder()
                 .url(url)
                 .headers(headers)
                 .timeout(Duration.ofMillis(connectionTimeout))
                 .responseType(new TypeReference<>() {
                 })
-                .baseLog("MsScheduledPaymentIntegrationService.getPaymentPJ")
+                .baseLog("MsVariableRecurringPaymentIntegrationService.getPaymentPJ")
                 .build();
 
         return httpClientService.getInternal(req);

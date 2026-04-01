@@ -1,7 +1,15 @@
 envVars:
+  - name: PORT
+    value: "8080"
+  - name: HEALTH_PORT
+    value: "8080"
   - name: MS_SCHEDULED_PAYMENT_BASE_URL
     value: "http://ms-scheduled-payment.operations-and-execution/scheduled-payments/v1"
-  - name: MS_SCHEDULED_PAYMENT_TIMEOUT
+  - name: MS_RECURRING_PAYMENT_BASE_URL
+    value: "http://ms-scheduled-payment.operations-and-execution/recurring-payments/v1"
+  - name: MS_VARIABLE_RECURRING_PAYMENT_BASE_URL
+    value: "http://ms-scheduled-payment.operations-and-execution/variable-recurring-payments/v1"
+  - name: MS_TIMEOUT
     value: "10000"
 
 serviceAccount:
