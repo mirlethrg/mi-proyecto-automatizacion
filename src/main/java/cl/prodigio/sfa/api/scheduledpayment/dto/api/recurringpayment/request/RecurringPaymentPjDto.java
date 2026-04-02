@@ -1,33 +1,17 @@
 package cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.common.ScheduleDto;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RecurringPaymentPjDto {
-    private String grantId;
-    private String transactionType;
-    private String debtorInstitutionId;
-    private String debtorName;
-    private String debtorIdentification;
-    private String debtorAccountType;
-    private String debtorAccountNumber;
+@EqualsAndHashCode(callSuper = true)
+public class RecurringPaymentPjDto extends RecurringPaymentBaseDto {
     private String debtorRepresentativeId;
     private String debtorRepresentativeRole;
-    private String creditorInstitutionId;
-    private String creditorName;
-    private String creditorIdentification;
-    private String creditorAccountType;
-    private String creditorAccountNumber;
-    private Double amount;
-    private String currency;
-    private ScheduleDto schedule;
-    private String endToEndId;
-    private String remittanceInformation;
 }

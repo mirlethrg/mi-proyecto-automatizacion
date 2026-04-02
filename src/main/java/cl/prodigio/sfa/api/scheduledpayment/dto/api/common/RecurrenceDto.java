@@ -1,4 +1,4 @@
-package cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.common;
+package cl.prodigio.sfa.api.scheduledpayment.dto.api.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
