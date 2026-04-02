@@ -1,7 +1,7 @@
 package cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.common.RecurrenceDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.common.ScheduleDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.common.RecurrenceDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.common.ScheduleDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,15 +1,18 @@
 package cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.common.*;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.common.ExecutionsSummaryDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.common.LimitsResponseDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.common.RecurrenceDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.common.ScheduleDto;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.OffsetDateTime;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecurringPaymentPnDto {

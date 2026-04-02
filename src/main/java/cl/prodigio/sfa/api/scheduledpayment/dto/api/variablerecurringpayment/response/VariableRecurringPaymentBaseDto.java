@@ -7,22 +7,21 @@ import cl.prodigio.sfa.api.scheduledpayment.dto.api.common.StatusReasonDto;
 import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.common.AmountPolicyDto;
 import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.common.ExecutionsDto;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.OffsetDateTime;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VariableRecurringPaymentDetailDto {
+public abstract class VariableRecurringPaymentBaseDto {
     private String recurringPaymentId;
     private String grantId;
     private OffsetDateTime creationDateTime;
     private OffsetDateTime statusUpdateDateTime;
-    private String paymentStatus;
     private StatusReasonDto statusReason;
     private OffsetDateTime nextExecutionDateTime;
     private OffsetDateTime lastExecutionDateTime;
@@ -34,8 +33,6 @@ public class VariableRecurringPaymentDetailDto {
     private String debtorAccountType;
     private String debtorName;
     private String debtorIdentification;
-    private String debtorRepresentativeId;
-    private String debtorRepresentativeRole;
     private String creditorInstitutionId;
     private String creditorAccountNumber;
     private String creditorAccountType;

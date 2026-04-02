@@ -1,44 +1,13 @@
 package cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.common.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.time.OffsetDateTime;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
-public class RecurringPaymentPjDto {
-    private String recurringPaymentId;
-    private String grantId;
-    private OffsetDateTime creationDateTime;
-    private OffsetDateTime statusUpdateDateTime;
-    private String paymentStatus;
-    private OffsetDateTime nextExecutionDateTime;
-    private OffsetDateTime lastExecutionDateTime;
-    private ExecutionsSummaryDto executionsSummary;
-    private LimitsResponseDto limits;
-    private String debtorInstitutionId;
-    private String debtorName;
-    private String debtorAccountNumber;
-    private String debtorAccountType;
-    private String debtorIdentification;
-    private String creditorInstitutionId;
-    private String creditorAccountNumber;
-    private String creditorAccountType;
-    private String creditorName;
-    private String creditorIdentification;
-    private Double amount;
-    private String currency;
-    private RecurrenceDto recurrence;
-    private ScheduleDto schedule;
-    private String executionTimeOfDay;
-    private String timezone;
-    private String cutoffProfile;
-    private String endToEndId;
-    private String remittanceInformation;
+@EqualsAndHashCode(callSuper = true)
+public class RecurringPaymentPjDto extends RecurringPaymentPnDto {
 }
