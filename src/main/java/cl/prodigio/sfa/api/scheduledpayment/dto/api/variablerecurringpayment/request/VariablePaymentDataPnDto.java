@@ -1,4 +1,4 @@
-package cl.prodigio.sfa.api.scheduledpayment.dto.api.response;
+package cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentDetailDataDto {
-    private List<PaymentDetailDto> payments;
+public class VariablePaymentDataPnDto {
+    private List<VariableRecurringPaymentPnDto> payments;
 }

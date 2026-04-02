@@ -1,9 +1,9 @@
 package cl.prodigio.sfa.api.scheduledpayment.service.external.impl;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.RecurringPaymentsRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.RecurringPaymentsRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.RecurringPaymentResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.RecurringPaymentsResponsePnDto;
 import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.RecurringPaymentDetailResponseDto;
 import cl.prodigio.sfa.api.scheduledpayment.service.external.MsRecurringPaymentIntegrationService;
 import cl.prodigio.sfa.api.scheduledpayment.util.FapiHeadersUtil;
@@ -29,11 +29,11 @@ public class MsRecurringPaymentIntegrationServiceImpl extends AbstractMsIntegrat
     }
 
     @Override
-    public PaymentsResponsePnDto createRecurringPn(String interactionId, String jwsSignature, PaymentsRequestPnDto request, String idempotencyKey) {
+    public RecurringPaymentsResponsePnDto createRecurringPn(String interactionId, String jwsSignature, RecurringPaymentsRequestPnDto request, String idempotencyKey) {
         log.info("Forwarding PN recurring payment to MS with interactionId {} and idempotencyKey {}", interactionId, idempotencyKey);
         String url = baseUrl + "/PN/recurring-payments";
 
-        var req = HttpRequestDto.<PaymentsRequestPnDto, PaymentsResponsePnDto>builder()
+        var req = HttpRequestDto.<RecurringPaymentsRequestPnDto, RecurringPaymentsResponsePnDto>builder()
                 .url(url)
                 .headers(FapiHeadersUtil.build(interactionId, jwsSignature, idempotencyKey))
                 .body(request)
@@ -47,11 +47,11 @@ public class MsRecurringPaymentIntegrationServiceImpl extends AbstractMsIntegrat
     }
 
     @Override
-    public PaymentsResponsePjDto createRecurringPj(String interactionId, String jwsSignature, PaymentsRequestPjDto request, String idempotencyKey) {
+    public RecurringPaymentResponsePjDto createRecurringPj(String interactionId, String jwsSignature, RecurringPaymentsRequestPjDto request, String idempotencyKey) {
         log.info("Forwarding PJ recurring payment to MS with interactionId {} and idempotencyKey {}", interactionId, idempotencyKey);
         String url = baseUrl + "/PJ/recurring-payments";
 
-        var req = HttpRequestDto.<PaymentsRequestPjDto, PaymentsResponsePjDto>builder()
+        var req = HttpRequestDto.<RecurringPaymentsRequestPjDto, RecurringPaymentResponsePjDto>builder()
                 .url(url)
                 .headers(FapiHeadersUtil.build(interactionId, jwsSignature, idempotencyKey))
                 .body(request)

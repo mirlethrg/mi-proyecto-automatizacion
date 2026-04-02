@@ -11,7 +11,7 @@ import java.time.OffsetDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentDetailDto {
+public class ScheduledPaymentDetailDto {
     private String paymentId;
     private String grantId;
     private OffsetDateTime creationDateTime;

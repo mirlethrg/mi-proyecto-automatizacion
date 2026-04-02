@@ -1,9 +1,9 @@
 package cl.prodigio.sfa.api.scheduledpayment.service.external.impl;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.RecurringPaymentsRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.RecurringPaymentsRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.RecurringPaymentResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.RecurringPaymentsResponsePnDto;
 import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.RecurringPaymentDetailResponseDto;
 import cl.prodigio.sfa.core.services.http.HttpClientService;
 import cl.prodigio.sfa.core.services.http.HttpRequestDto;
@@ -36,24 +36,24 @@ class MsRecurringPaymentIntegrationServiceImplTest {
 
     @Test
     void createRecurringPn_ShouldReturnResponse() {
-        PaymentsRequestPnDto request = PaymentsRequestPnDto.builder().build();
-        PaymentsResponsePnDto expectedResponse = PaymentsResponsePnDto.builder().build();
+        RecurringPaymentsRequestPnDto request = RecurringPaymentsRequestPnDto.builder().build();
+        RecurringPaymentsResponsePnDto expectedResponse = RecurringPaymentsResponsePnDto.builder().build();
 
         when(httpClientService.postInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        PaymentsResponsePnDto actualResponse = integrationService.createRecurringPn("interaction-id", "signature", request, "idempotency-key");
+        RecurringPaymentsResponsePnDto actualResponse = integrationService.createRecurringPn("interaction-id", "signature", request, "idempotency-key");
 
         assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
     void createRecurringPj_ShouldReturnResponse() {
-        PaymentsRequestPjDto request = PaymentsRequestPjDto.builder().build();
-        PaymentsResponsePjDto expectedResponse = PaymentsResponsePjDto.builder().build();
+        RecurringPaymentsRequestPjDto request = RecurringPaymentsRequestPjDto.builder().build();
+        RecurringPaymentResponsePjDto expectedResponse = RecurringPaymentResponsePjDto.builder().build();
 
         when(httpClientService.postInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        PaymentsResponsePjDto actualResponse = integrationService.createRecurringPj("interaction-id", "signature", request, "idempotency-key");
+        RecurringPaymentResponsePjDto actualResponse = integrationService.createRecurringPj("interaction-id", "signature", request, "idempotency-key");
 
         assertEquals(expectedResponse, actualResponse);
     }

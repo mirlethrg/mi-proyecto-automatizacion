@@ -1,4 +1,4 @@
-package cl.prodigio.sfa.api.scheduledpayment.dto.api.response;
+package cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentsDataPjDto {
-    private List<ScheduledPaymentPjDto> payments;
+public class RecurringPaymentsDataPjDto {
+    private List<RecurringPaymentPjDto> payments;
 }

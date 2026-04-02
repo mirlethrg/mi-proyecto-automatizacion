@@ -1,9 +1,9 @@
 package cl.prodigio.sfa.api.scheduledpayment.service.external.impl;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.VariablePaymentRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.VariablePaymentRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariablePaymentResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariablePaymentResponsePnDto;
 import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariableRecurringPaymentDetailResponseDto;
 import cl.prodigio.sfa.api.scheduledpayment.service.external.MsVariableRecurringPaymentIntegrationService;
 import cl.prodigio.sfa.api.scheduledpayment.util.FapiHeadersUtil;
@@ -29,11 +29,11 @@ public class MsVariableRecurringPaymentIntegrationServiceImpl extends AbstractMs
     }
 
     @Override
-    public PaymentsResponsePnDto createVariableRecurringPn(String interactionId, String jwsSignature, PaymentsRequestPnDto request, String idempotencyKey) {
+    public VariablePaymentResponsePnDto createVariableRecurringPn(String interactionId, String jwsSignature, VariablePaymentRequestPnDto request, String idempotencyKey) {
         log.info("Forwarding PN variable recurring payment to MS with interactionId {} and idempotencyKey {}", interactionId, idempotencyKey);
         String url = baseUrl + "/PN/variable-recurring-payments";
 
-        var req = HttpRequestDto.<PaymentsRequestPnDto, PaymentsResponsePnDto>builder()
+        var req = HttpRequestDto.<VariablePaymentRequestPnDto, VariablePaymentResponsePnDto>builder()
                 .url(url)
                 .headers(FapiHeadersUtil.build(interactionId, jwsSignature, idempotencyKey))
                 .body(request)
@@ -47,11 +47,11 @@ public class MsVariableRecurringPaymentIntegrationServiceImpl extends AbstractMs
     }
 
     @Override
-    public PaymentsResponsePjDto createVariableRecurringPj(String interactionId, String jwsSignature, PaymentsRequestPjDto request, String idempotencyKey) {
+    public VariablePaymentResponsePjDto createVariableRecurringPj(String interactionId, String jwsSignature, VariablePaymentRequestPjDto request, String idempotencyKey) {
         log.info("Forwarding PJ variable recurring payment to MS with interactionId {} and idempotencyKey {}", interactionId, idempotencyKey);
         String url = baseUrl + "/PJ/variable-recurring-payments";
 
-        var req = HttpRequestDto.<PaymentsRequestPjDto, PaymentsResponsePjDto>builder()
+        var req = HttpRequestDto.<VariablePaymentRequestPjDto, VariablePaymentResponsePjDto>builder()
                 .url(url)
                 .headers(FapiHeadersUtil.build(interactionId, jwsSignature, idempotencyKey))
                 .body(request)

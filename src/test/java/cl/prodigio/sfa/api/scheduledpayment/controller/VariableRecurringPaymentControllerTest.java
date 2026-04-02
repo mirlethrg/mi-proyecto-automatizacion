@@ -1,9 +1,9 @@
 package cl.prodigio.sfa.api.scheduledpayment.controller;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.VariablePaymentRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.VariablePaymentRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariablePaymentResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariablePaymentResponsePnDto;
 import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariableRecurringPaymentDetailResponseDto;
 import cl.prodigio.sfa.api.scheduledpayment.service.core.VariableRecurringPaymentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,10 +35,10 @@ class VariableRecurringPaymentControllerTest {
 
     @Test
     void createPn_ShouldReturnOk() throws Exception {
-        PaymentsRequestPnDto request = PaymentsRequestPnDto.builder().build();
-        PaymentsResponsePnDto response = PaymentsResponsePnDto.builder().build();
+        VariablePaymentRequestPnDto request = VariablePaymentRequestPnDto.builder().build();
+        VariablePaymentResponsePnDto response = VariablePaymentResponsePnDto.builder().build();
 
-        when(variableRecurringPaymentService.createPn(eq("interaction-id"), eq("jws-signature"), any(PaymentsRequestPnDto.class), eq("idempotency-key")))
+        when(variableRecurringPaymentService.createPn(eq("interaction-id"), eq("jws-signature"), any(VariablePaymentRequestPnDto.class), eq("idempotency-key")))
                 .thenReturn(response);
 
         mockMvc.perform(post("/variable-recurring-payments/v1/PN/variable-recurring-payments")
@@ -52,10 +52,10 @@ class VariableRecurringPaymentControllerTest {
 
     @Test
     void createPj_ShouldReturnOk() throws Exception {
-        PaymentsRequestPjDto request = PaymentsRequestPjDto.builder().build();
-        PaymentsResponsePjDto response = PaymentsResponsePjDto.builder().build();
+        VariablePaymentRequestPjDto request = VariablePaymentRequestPjDto.builder().build();
+        VariablePaymentResponsePjDto response = VariablePaymentResponsePjDto.builder().build();
 
-        when(variableRecurringPaymentService.createPj(eq("interaction-id"), eq("jws-signature"), any(PaymentsRequestPjDto.class), eq("idempotency-key")))
+        when(variableRecurringPaymentService.createPj(eq("interaction-id"), eq("jws-signature"), any(VariablePaymentRequestPjDto.class), eq("idempotency-key")))
                 .thenReturn(response);
 
         mockMvc.perform(post("/variable-recurring-payments/v1/PJ/variable-recurring-payments")
