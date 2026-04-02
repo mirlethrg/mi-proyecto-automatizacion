@@ -1,9 +1,9 @@
 package cl.prodigio.sfa.api.scheduledpayment.service.core.impl;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.VariablePaymentRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.VariablePaymentRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariablePaymentResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariablePaymentResponsePnDto;
 import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariableRecurringPaymentDetailResponseDto;
 import cl.prodigio.sfa.api.scheduledpayment.service.external.MsVariableRecurringPaymentIntegrationService;
 import org.junit.jupiter.api.Test;
@@ -26,26 +26,26 @@ class VariableRecurringPaymentServiceImplTest {
 
     @Test
     void createPn_ShouldReturnResponse() {
-        PaymentsRequestPnDto request = PaymentsRequestPnDto.builder().build();
-        PaymentsResponsePnDto expectedResponse = PaymentsResponsePnDto.builder().build();
+        VariablePaymentRequestPnDto request = VariablePaymentRequestPnDto.builder().build();
+        VariablePaymentResponsePnDto expectedResponse = VariablePaymentResponsePnDto.builder().build();
 
         when(integrationService.createVariableRecurringPn("interaction-id", "signature", request, "idempotency-key"))
                 .thenReturn(expectedResponse);
 
-        PaymentsResponsePnDto actualResponse = variableRecurringPaymentService.createPn("interaction-id", "signature", request, "idempotency-key");
+        VariablePaymentResponsePnDto actualResponse = variableRecurringPaymentService.createPn("interaction-id", "signature", request, "idempotency-key");
 
         assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
     void createPj_ShouldReturnResponse() {
-        PaymentsRequestPjDto request = PaymentsRequestPjDto.builder().build();
-        PaymentsResponsePjDto expectedResponse = PaymentsResponsePjDto.builder().build();
+        VariablePaymentRequestPjDto request = VariablePaymentRequestPjDto.builder().build();
+        VariablePaymentResponsePjDto expectedResponse = VariablePaymentResponsePjDto.builder().build();
 
         when(integrationService.createVariableRecurringPj("interaction-id", "signature", request, "idempotency-key"))
                 .thenReturn(expectedResponse);
 
-        PaymentsResponsePjDto actualResponse = variableRecurringPaymentService.createPj("interaction-id", "signature", request, "idempotency-key");
+        VariablePaymentResponsePjDto actualResponse = variableRecurringPaymentService.createPj("interaction-id", "signature", request, "idempotency-key");
 
         assertEquals(expectedResponse, actualResponse);
     }

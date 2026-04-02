@@ -1,10 +1,10 @@
 package cl.prodigio.sfa.api.scheduledpayment.service.external.impl;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentDetailResponseDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.ScheduledPaymentsRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.ScheduledPaymentsRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.ScheduledPaymentDetailResponseDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.ScheduledPaymentsResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.ScheduledPaymentsResponsePnDto;
 import cl.prodigio.sfa.api.scheduledpayment.service.external.MsScheduledPaymentIntegrationService;
 import cl.prodigio.sfa.api.scheduledpayment.util.FapiHeadersUtil;
 import cl.prodigio.sfa.core.services.http.HttpClientService;
@@ -29,11 +29,11 @@ public class MsScheduledPaymentIntegrationServiceImpl extends AbstractMsIntegrat
     }
 
     @Override
-    public PaymentsResponsePnDto createScheduledPn(String interactionId, String jwsSignature, PaymentsRequestPnDto request, String idempotencyKey) {
+    public ScheduledPaymentsResponsePnDto createScheduledPn(String interactionId, String jwsSignature, ScheduledPaymentsRequestPnDto request, String idempotencyKey) {
         log.info("Forwarding PN scheduled payment to MS with interactionId {} and idempotencyKey {}", interactionId, idempotencyKey);
         String url = baseUrl + "/PN/scheduled-payments";
 
-        var req = HttpRequestDto.<PaymentsRequestPnDto, PaymentsResponsePnDto>builder()
+        var req = HttpRequestDto.<ScheduledPaymentsRequestPnDto, ScheduledPaymentsResponsePnDto>builder()
                 .url(url)
                 .headers(FapiHeadersUtil.build(interactionId, jwsSignature, idempotencyKey))
                 .body(request)
@@ -47,11 +47,11 @@ public class MsScheduledPaymentIntegrationServiceImpl extends AbstractMsIntegrat
     }
 
     @Override
-    public PaymentsResponsePjDto createScheduledPj(String interactionId, String jwsSignature, PaymentsRequestPjDto request, String idempotencyKey) {
+    public ScheduledPaymentsResponsePjDto createScheduledPj(String interactionId, String jwsSignature, ScheduledPaymentsRequestPjDto request, String idempotencyKey) {
         log.info("Forwarding PJ scheduled payment to MS with interactionId {} and idempotencyKey {}", interactionId, idempotencyKey);
         String url = baseUrl + "/PJ/scheduled-payments";
 
-        var req = HttpRequestDto.<PaymentsRequestPjDto, PaymentsResponsePjDto>builder()
+        var req = HttpRequestDto.<ScheduledPaymentsRequestPjDto, ScheduledPaymentsResponsePjDto>builder()
                 .url(url)
                 .headers(FapiHeadersUtil.build(interactionId, jwsSignature, idempotencyKey))
                 .body(request)
@@ -65,11 +65,11 @@ public class MsScheduledPaymentIntegrationServiceImpl extends AbstractMsIntegrat
     }
 
     @Override
-    public PaymentDetailResponseDto getScheduledPayment(String paymentId, String participantType, String interactionId, String jwsSignature) {
+    public ScheduledPaymentDetailResponseDto getScheduledPayment(String paymentId, String participantType, String interactionId, String jwsSignature) {
         log.info("Forwarding query for {} and participantType {} to MS", paymentId, participantType);
         String url = baseUrl + "/" + participantType + "/scheduled-payments/" + paymentId;
 
-        var req = HttpRequestDto.<Void, PaymentDetailResponseDto>builder()
+        var req = HttpRequestDto.<Void, ScheduledPaymentDetailResponseDto>builder()
                 .url(url)
                 .headers(FapiHeadersUtil.build(interactionId, jwsSignature, null))
                 .timeout(Duration.ofMillis(connectionTimeout))

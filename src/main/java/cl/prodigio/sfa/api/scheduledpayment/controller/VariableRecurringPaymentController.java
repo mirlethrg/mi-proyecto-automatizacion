@@ -1,9 +1,9 @@
 package cl.prodigio.sfa.api.scheduledpayment.controller;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.VariablePaymentRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.VariablePaymentRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariablePaymentResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariablePaymentResponsePnDto;
 import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariableRecurringPaymentDetailResponseDto;
 import cl.prodigio.sfa.api.scheduledpayment.service.core.VariableRecurringPaymentService;
 import lombok.RequiredArgsConstructor;
@@ -20,21 +20,21 @@ public class VariableRecurringPaymentController {
     private final VariableRecurringPaymentService variableRecurringPaymentService;
 
     @PostMapping("/PN/variable-recurring-payments")
-    public ResponseEntity<PaymentsResponsePnDto> createPn(
+    public ResponseEntity<VariablePaymentResponsePnDto> createPn(
             @RequestHeader("x-fapi-interaction-id") String interactionId,
             @RequestHeader("x-jws-signature") String jwsSignature,
             @RequestHeader("x-idempotency-key") String idempotencyKey,
-            @RequestBody PaymentsRequestPnDto request) {
+            @RequestBody VariablePaymentRequestPnDto request) {
         log.info("Received request to create PN variable recurring payment in API");
         return ResponseEntity.ok(variableRecurringPaymentService.createPn(interactionId, jwsSignature, request, idempotencyKey));
     }
 
     @PostMapping("/PJ/variable-recurring-payments")
-    public ResponseEntity<PaymentsResponsePjDto> createPj(
+    public ResponseEntity<VariablePaymentResponsePjDto> createPj(
             @RequestHeader("x-fapi-interaction-id") String interactionId,
             @RequestHeader("x-jws-signature") String jwsSignature,
             @RequestHeader("x-idempotency-key") String idempotencyKey,
-            @RequestBody PaymentsRequestPjDto request) {
+            @RequestBody VariablePaymentRequestPjDto request) {
         log.info("Received request to create PJ variable recurring payment in API");
         return ResponseEntity.ok(variableRecurringPaymentService.createPj(interactionId, jwsSignature, request, idempotencyKey));
     }

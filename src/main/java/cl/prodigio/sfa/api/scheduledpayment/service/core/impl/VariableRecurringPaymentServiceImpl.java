@@ -1,9 +1,9 @@
 package cl.prodigio.sfa.api.scheduledpayment.service.core.impl;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.VariablePaymentRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request.VariablePaymentRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariablePaymentResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariablePaymentResponsePnDto;
 import cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariableRecurringPaymentDetailResponseDto;
 import cl.prodigio.sfa.api.scheduledpayment.service.core.VariableRecurringPaymentService;
 import cl.prodigio.sfa.api.scheduledpayment.service.external.MsVariableRecurringPaymentIntegrationService;
@@ -19,12 +19,12 @@ public class VariableRecurringPaymentServiceImpl implements VariableRecurringPay
     private final MsVariableRecurringPaymentIntegrationService integrationService;
 
     @Override
-    public PaymentsResponsePnDto createPn(String interactionId, String jwsSignature, PaymentsRequestPnDto request, String idempotencyKey) {
+    public VariablePaymentResponsePnDto createPn(String interactionId, String jwsSignature, VariablePaymentRequestPnDto request, String idempotencyKey) {
         return integrationService.createVariableRecurringPn(interactionId, jwsSignature, request, idempotencyKey);
     }
 
     @Override
-    public PaymentsResponsePjDto createPj(String interactionId, String jwsSignature, PaymentsRequestPjDto request, String idempotencyKey) {
+    public VariablePaymentResponsePjDto createPj(String interactionId, String jwsSignature, VariablePaymentRequestPjDto request, String idempotencyKey) {
         return integrationService.createVariableRecurringPj(interactionId, jwsSignature, request, idempotencyKey);
     }
 

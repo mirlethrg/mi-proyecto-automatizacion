@@ -1,9 +1,9 @@
 package cl.prodigio.sfa.api.scheduledpayment.controller;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.RecurringPaymentsRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.RecurringPaymentsRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.RecurringPaymentResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.RecurringPaymentsResponsePnDto;
 import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.RecurringPaymentDetailResponseDto;
 import cl.prodigio.sfa.api.scheduledpayment.service.core.RecurringPaymentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,10 +35,10 @@ class RecurringPaymentControllerTest {
 
     @Test
     void createPn_ShouldReturnOk() throws Exception {
-        PaymentsRequestPnDto request = PaymentsRequestPnDto.builder().build();
-        PaymentsResponsePnDto response = PaymentsResponsePnDto.builder().build();
+        RecurringPaymentsRequestPnDto request = RecurringPaymentsRequestPnDto.builder().build();
+        RecurringPaymentsResponsePnDto response = RecurringPaymentsResponsePnDto.builder().build();
 
-        when(recurringPaymentService.createPn(eq("interaction-id"), eq("jws-signature"), any(PaymentsRequestPnDto.class), eq("idempotency-key")))
+        when(recurringPaymentService.createPn(eq("interaction-id"), eq("jws-signature"), any(RecurringPaymentsRequestPnDto.class), eq("idempotency-key")))
                 .thenReturn(response);
 
         mockMvc.perform(post("/recurring-payments/v1/PN/recurring-payments")
@@ -52,10 +52,10 @@ class RecurringPaymentControllerTest {
 
     @Test
     void createPj_ShouldReturnOk() throws Exception {
-        PaymentsRequestPjDto request = PaymentsRequestPjDto.builder().build();
-        PaymentsResponsePjDto response = PaymentsResponsePjDto.builder().build();
+        RecurringPaymentsRequestPjDto request = RecurringPaymentsRequestPjDto.builder().build();
+        RecurringPaymentResponsePjDto response = RecurringPaymentResponsePjDto.builder().build();
 
-        when(recurringPaymentService.createPj(eq("interaction-id"), eq("jws-signature"), any(PaymentsRequestPjDto.class), eq("idempotency-key")))
+        when(recurringPaymentService.createPj(eq("interaction-id"), eq("jws-signature"), any(RecurringPaymentsRequestPjDto.class), eq("idempotency-key")))
                 .thenReturn(response);
 
         mockMvc.perform(post("/recurring-payments/v1/PJ/recurring-payments")

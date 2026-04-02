@@ -11,15 +11,15 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentsResponsePjDto {
-    private PaymentsResponseDataPjDto paymentsResponse;
+public class RecurringPaymentResponsePjDto {
+    private RecurringPaymentResponseDataPjDto paymentsResponse;
 
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PaymentsResponseDataPjDto {
-        private PaymentsDataPjDto data;
+    public static class RecurringPaymentResponseDataPjDto {
+        private RecurringPaymentsDataPjDto data;
         private Map<String, String> links;
         private Map<String, Object> meta;
     }

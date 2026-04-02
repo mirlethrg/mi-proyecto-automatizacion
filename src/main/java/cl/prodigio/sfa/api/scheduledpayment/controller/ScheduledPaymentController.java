@@ -1,10 +1,10 @@
 package cl.prodigio.sfa.api.scheduledpayment.controller;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentDetailResponseDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.ScheduledPaymentsRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.ScheduledPaymentsRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.ScheduledPaymentDetailResponseDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.ScheduledPaymentsResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.ScheduledPaymentsResponsePnDto;
 import cl.prodigio.sfa.api.scheduledpayment.service.core.ScheduledPaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,27 +20,27 @@ public class ScheduledPaymentController {
     private final ScheduledPaymentService scheduledPaymentService;
 
     @PostMapping("/PN/scheduled-payments")
-    public ResponseEntity<PaymentsResponsePnDto> createPn(
+    public ResponseEntity<ScheduledPaymentsResponsePnDto> createPn(
             @RequestHeader("x-fapi-interaction-id") String interactionId,
             @RequestHeader("x-jws-signature") String jwsSignature,
             @RequestHeader("x-idempotency-key") String idempotencyKey,
-            @RequestBody PaymentsRequestPnDto request) {
+            @RequestBody ScheduledPaymentsRequestPnDto request) {
         log.info("Received request to create PN scheduled payment in API");
         return ResponseEntity.ok(scheduledPaymentService.createPn(interactionId, jwsSignature, request, idempotencyKey));
     }
 
     @PostMapping("/PJ/scheduled-payments")
-    public ResponseEntity<PaymentsResponsePjDto> createPj(
+    public ResponseEntity<ScheduledPaymentsResponsePjDto> createPj(
             @RequestHeader("x-fapi-interaction-id") String interactionId,
             @RequestHeader("x-jws-signature") String jwsSignature,
             @RequestHeader("x-idempotency-key") String idempotencyKey,
-            @RequestBody PaymentsRequestPjDto request) {
+            @RequestBody ScheduledPaymentsRequestPjDto request) {
         log.info("Received request to create PJ scheduled payment in API");
         return ResponseEntity.ok(scheduledPaymentService.createPj(interactionId, jwsSignature, request, idempotencyKey));
     }
 
     @GetMapping("/{participantType}/scheduled-payments/{paymentId}")
-    public ResponseEntity<PaymentDetailResponseDto> get(
+    public ResponseEntity<ScheduledPaymentDetailResponseDto> get(
             @PathVariable String participantType,
             @PathVariable String paymentId,
             @RequestHeader("x-fapi-interaction-id") String interactionId,

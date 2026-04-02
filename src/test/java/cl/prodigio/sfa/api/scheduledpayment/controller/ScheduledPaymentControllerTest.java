@@ -1,10 +1,10 @@
 package cl.prodigio.sfa.api.scheduledpayment.controller;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentDetailResponseDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.ScheduledPaymentsRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.ScheduledPaymentsRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.ScheduledPaymentDetailResponseDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.ScheduledPaymentsResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.ScheduledPaymentsResponsePnDto;
 import cl.prodigio.sfa.api.scheduledpayment.service.core.ScheduledPaymentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -35,10 +35,10 @@ class ScheduledPaymentControllerTest {
 
     @Test
     void createPn_ShouldReturnOk() throws Exception {
-        PaymentsRequestPnDto request = PaymentsRequestPnDto.builder().build();
-        PaymentsResponsePnDto response = PaymentsResponsePnDto.builder().build();
+        ScheduledPaymentsRequestPnDto request = ScheduledPaymentsRequestPnDto.builder().build();
+        ScheduledPaymentsResponsePnDto response = ScheduledPaymentsResponsePnDto.builder().build();
 
-        when(scheduledPaymentService.createPn(eq("interaction-id"), eq("jws-signature"), any(PaymentsRequestPnDto.class), eq("idempotency-key")))
+        when(scheduledPaymentService.createPn(eq("interaction-id"), eq("jws-signature"), any(ScheduledPaymentsRequestPnDto.class), eq("idempotency-key")))
                 .thenReturn(response);
 
         mockMvc.perform(post("/scheduled-payments/v1/PN/scheduled-payments")
@@ -52,10 +52,10 @@ class ScheduledPaymentControllerTest {
 
     @Test
     void createPj_ShouldReturnOk() throws Exception {
-        PaymentsRequestPjDto request = PaymentsRequestPjDto.builder().build();
-        PaymentsResponsePjDto response = PaymentsResponsePjDto.builder().build();
+        ScheduledPaymentsRequestPjDto request = ScheduledPaymentsRequestPjDto.builder().build();
+        ScheduledPaymentsResponsePjDto response = ScheduledPaymentsResponsePjDto.builder().build();
 
-        when(scheduledPaymentService.createPj(eq("interaction-id"), eq("jws-signature"), any(PaymentsRequestPjDto.class), eq("idempotency-key")))
+        when(scheduledPaymentService.createPj(eq("interaction-id"), eq("jws-signature"), any(ScheduledPaymentsRequestPjDto.class), eq("idempotency-key")))
                 .thenReturn(response);
 
         mockMvc.perform(post("/scheduled-payments/v1/PJ/scheduled-payments")
@@ -69,7 +69,7 @@ class ScheduledPaymentControllerTest {
 
     @Test
     void get_ShouldReturnOk() throws Exception {
-        PaymentDetailResponseDto response = PaymentDetailResponseDto.builder().build();
+        ScheduledPaymentDetailResponseDto response = ScheduledPaymentDetailResponseDto.builder().build();
 
         when(scheduledPaymentService.get(eq("PAY-123"), eq("PN"), eq("interaction-id"), any()))
                 .thenReturn(response);

@@ -1,10 +1,10 @@
 package cl.prodigio.sfa.api.scheduledpayment.service.external.impl;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentDetailResponseDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.ScheduledPaymentsRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.request.ScheduledPaymentsRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.ScheduledPaymentDetailResponseDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.ScheduledPaymentsResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.response.ScheduledPaymentsResponsePnDto;
 import cl.prodigio.sfa.core.services.http.HttpClientService;
 import cl.prodigio.sfa.core.services.http.HttpRequestDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,35 +36,35 @@ class MsScheduledPaymentIntegrationServiceImplTest {
 
     @Test
     void createScheduledPn_ShouldReturnResponse() {
-        PaymentsRequestPnDto request = PaymentsRequestPnDto.builder().build();
-        PaymentsResponsePnDto expectedResponse = PaymentsResponsePnDto.builder().build();
+        ScheduledPaymentsRequestPnDto request = ScheduledPaymentsRequestPnDto.builder().build();
+        ScheduledPaymentsResponsePnDto expectedResponse = ScheduledPaymentsResponsePnDto.builder().build();
 
         when(httpClientService.postInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        PaymentsResponsePnDto actualResponse = integrationService.createScheduledPn("interaction-id", "signature", request, "idempotency-key");
+        ScheduledPaymentsResponsePnDto actualResponse = integrationService.createScheduledPn("interaction-id", "signature", request, "idempotency-key");
 
         assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
     void createScheduledPj_ShouldReturnResponse() {
-        PaymentsRequestPjDto request = PaymentsRequestPjDto.builder().build();
-        PaymentsResponsePjDto expectedResponse = PaymentsResponsePjDto.builder().build();
+        ScheduledPaymentsRequestPjDto request = ScheduledPaymentsRequestPjDto.builder().build();
+        ScheduledPaymentsResponsePjDto expectedResponse = ScheduledPaymentsResponsePjDto.builder().build();
 
         when(httpClientService.postInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        PaymentsResponsePjDto actualResponse = integrationService.createScheduledPj("interaction-id", "signature", request, "idempotency-key");
+        ScheduledPaymentsResponsePjDto actualResponse = integrationService.createScheduledPj("interaction-id", "signature", request, "idempotency-key");
 
         assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
     void getScheduledPayment_ShouldReturnResponse() {
-        PaymentDetailResponseDto expectedResponse = PaymentDetailResponseDto.builder().build();
+        ScheduledPaymentDetailResponseDto expectedResponse = ScheduledPaymentDetailResponseDto.builder().build();
 
         when(httpClientService.getInternal(any(HttpRequestDto.class))).thenReturn(expectedResponse);
 
-        PaymentDetailResponseDto actualResponse = integrationService.getScheduledPayment("PAY-123", "PN", "interaction-id", "signature");
+        ScheduledPaymentDetailResponseDto actualResponse = integrationService.getScheduledPayment("PAY-123", "PN", "interaction-id", "signature");
 
         assertEquals(expectedResponse, actualResponse);
     }

@@ -11,6 +11,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentsDataPnDto {
+public class ScheduledPaymentsDataPnDto {
     private List<ScheduledPaymentPnDto> payments;
 }

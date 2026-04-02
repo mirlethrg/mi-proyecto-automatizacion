@@ -1,9 +1,9 @@
 package cl.prodigio.sfa.api.scheduledpayment.controller;
 
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.PaymentsRequestPjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.PaymentsRequestPnDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.PaymentsResponsePjDto;
-import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.PaymentsResponsePnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.RecurringPaymentsRequestPjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request.RecurringPaymentsRequestPnDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.RecurringPaymentResponsePjDto;
+import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.RecurringPaymentsResponsePnDto;
 import cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.response.RecurringPaymentDetailResponseDto;
 import cl.prodigio.sfa.api.scheduledpayment.service.core.RecurringPaymentService;
 import lombok.RequiredArgsConstructor;
@@ -20,21 +20,21 @@ public class RecurringPaymentController {
     private final RecurringPaymentService recurringPaymentService;
 
     @PostMapping("/PN/recurring-payments")
-    public ResponseEntity<PaymentsResponsePnDto> createPn(
+    public ResponseEntity<RecurringPaymentsResponsePnDto> createPn(
             @RequestHeader("x-fapi-interaction-id") String interactionId,
             @RequestHeader("x-jws-signature") String jwsSignature,
             @RequestHeader("x-idempotency-key") String idempotencyKey,
-            @RequestBody PaymentsRequestPnDto request) {
+            @RequestBody RecurringPaymentsRequestPnDto request) {
         log.info("Received request to create PN recurring payment in API");
         return ResponseEntity.ok(recurringPaymentService.createPn(interactionId, jwsSignature, request, idempotencyKey));
     }
 
     @PostMapping("/PJ/recurring-payments")
-    public ResponseEntity<PaymentsResponsePjDto> createPj(
+    public ResponseEntity<RecurringPaymentResponsePjDto> createPj(
             @RequestHeader("x-fapi-interaction-id") String interactionId,
             @RequestHeader("x-jws-signature") String jwsSignature,
             @RequestHeader("x-idempotency-key") String idempotencyKey,
-            @RequestBody PaymentsRequestPjDto request) {
+            @RequestBody RecurringPaymentsRequestPjDto request) {
         log.info("Received request to create PJ recurring payment in API");
         return ResponseEntity.ok(recurringPaymentService.createPj(interactionId, jwsSignature, request, idempotencyKey));
     }

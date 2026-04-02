@@ -1,4 +1,4 @@
-package cl.prodigio.sfa.api.scheduledpayment.dto.api.recurringpayment.request;
+package cl.prodigio.sfa.api.scheduledpayment.dto.api.variablerecurringpayment.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,15 +11,15 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentsRequestPnDto {
-    private PaymentsRequestDataPnDto paymentsRequest;
+public class VariablePaymentRequestPnDto {
+    private VariablePaymentRequestDataPnDto paymentsRequest;
 
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PaymentsRequestDataPnDto {
-        private PaymentsDataPnDto data;
+    public static class VariablePaymentRequestDataPnDto {
+        private VariablePaymentDataPnDto data;
         private Map<String, String> links;
         private Map<String, Object> meta;
     }

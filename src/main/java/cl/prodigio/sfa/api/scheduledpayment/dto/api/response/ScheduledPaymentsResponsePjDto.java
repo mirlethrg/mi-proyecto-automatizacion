@@ -1,4 +1,4 @@
-package cl.prodigio.sfa.api.scheduledpayment.dto.api.request;
+package cl.prodigio.sfa.api.scheduledpayment.dto.api.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,15 +11,15 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentsRequestPjDto {
-    private PaymentsRequestDataPjDto paymentsRequest;
+public class ScheduledPaymentsResponsePjDto {
+    private ScheduledPaymentsResponseDataPjDto paymentsResponse;
 
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PaymentsRequestDataPjDto {
-        private PaymentsDataPjDto data;
+    public static class ScheduledPaymentsResponseDataPjDto {
+        private ScheduledPaymentsDataPjDto data;
         private Map<String, String> links;
         private Map<String, Object> meta;
     }
