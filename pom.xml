@@ -24,6 +24,7 @@
     <jacoco.version>0.8.12</jacoco.version>
     <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
     <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.cpd.exclusions>**/dto/**/*.java</sonar.cpd.exclusions>
   </properties>
 
   <dependencies>
