@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
-  title: api-scheduled-payment-service API
+  title: qa-automation-engine API
   version: 0.1.0
-  description: API contract for api-scheduled-payment-service.
+  description: API contract for qa-automation-engine.
 servers:
   - url: http://localhost:8080
 paths:
@@ -349,3 +349,4 @@ components:
           additionalProperties: true
         traceId:
           type: string
+

@@ -1,0 +1,84 @@
+package com.mypolio.qa.paymentsystem.api.scheduledpayment.service.external.impl;
+
+import com.mypolio.qa.paymentsystem.api.scheduledpayment.dto.api.variablerecurringpayment.request.VariablePaymentRequestPjDto;
+import com.mypolio.qa.paymentsystem.api.scheduledpayment.dto.api.variablerecurringpayment.request.VariablePaymentRequestPnDto;
+import com.mypolio.qa.paymentsystem.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariablePaymentResponsePjDto;
+import com.mypolio.qa.paymentsystem.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariablePaymentResponsePnDto;
+import com.mypolio.qa.paymentsystem.api.scheduledpayment.dto.api.variablerecurringpayment.response.VariableRecurringPaymentDetailResponseDto;
+import com.mypolio.qa.paymentsystem.api.scheduledpayment.service.external.MsVariableRecurringPaymentIntegrationService;
+import com.mypolio.qa.paymentsystem.api.scheduledpayment.util.FapiHeadersUtil;
+import com.mypolio.qa.paymentsystem.core.services.http.HttpClientService;
+import com.mypolio.qa.paymentsystem.core.services.http.HttpRequestDto;
+import com.fasterxml.jackson.core.type.TypeReference;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.time.Duration;
+
+@Slf4j
+@Service
+public class MsVariableRecurringPaymentIntegrationServiceImpl extends AbstractMsIntegrationService
+        implements MsVariableRecurringPaymentIntegrationService {
+
+    @Value("${ms.variable.recurring.payment.base.url}")
+    private String baseUrl;
+
+    public MsVariableRecurringPaymentIntegrationServiceImpl(HttpClientService httpClientService) {
+        super(httpClientService);
+    }
+
+    @Override
+    public VariablePaymentResponsePnDto createVariableRecurringPn(String interactionId, String jwsSignature, VariablePaymentRequestPnDto request, String idempotencyKey) {
+        log.info("Forwarding PN variable recurring payment to MS with interactionId {} and idempotencyKey {}", interactionId, idempotencyKey);
+        String url = baseUrl + "/PN/variable-recurring-payments";
+
+        var req = HttpRequestDto.<VariablePaymentRequestPnDto, VariablePaymentResponsePnDto>builder()
+                .url(url)
+                .headers(FapiHeadersUtil.build(interactionId, jwsSignature, idempotencyKey))
+                .body(request)
+                .timeout(Duration.ofMillis(connectionTimeout))
+                .responseType(new TypeReference<>() {
+                })
+                .baseLog("MsVariableRecurringPaymentIntegrationService.createVariableRecurringPn")
+                .build();
+
+        return httpClientService.postInternal(req);
+    }
+
+    @Override
+    public VariablePaymentResponsePjDto createVariableRecurringPj(String interactionId, String jwsSignature, VariablePaymentRequestPjDto request, String idempotencyKey) {
+        log.info("Forwarding PJ variable recurring payment to MS with interactionId {} and idempotencyKey {}", interactionId, idempotencyKey);
+        String url = baseUrl + "/PJ/variable-recurring-payments";
+
+        var req = HttpRequestDto.<VariablePaymentRequestPjDto, VariablePaymentResponsePjDto>builder()
+                .url(url)
+                .headers(FapiHeadersUtil.build(interactionId, jwsSignature, idempotencyKey))
+                .body(request)
+                .timeout(Duration.ofMillis(connectionTimeout))
+                .responseType(new TypeReference<>() {
+                })
+                .baseLog("MsVariableRecurringPaymentIntegrationService.createVariableRecurringPj")
+                .build();
+
+        return httpClientService.postInternal(req);
+    }
+
+    @Override
+    public VariableRecurringPaymentDetailResponseDto getVariableRecurringPayment(String paymentId, String participantType, String interactionId, String jwsSignature) {
+        log.info("Forwarding query for {} and participantType {} to MS", paymentId, participantType);
+        String url = baseUrl + "/" + participantType + "/variable-recurring-payments/" + paymentId;
+
+        var req = HttpRequestDto.<Void, VariableRecurringPaymentDetailResponseDto>builder()
+                .url(url)
+                .headers(FapiHeadersUtil.build(interactionId, jwsSignature, null))
+                .timeout(Duration.ofMillis(connectionTimeout))
+                .responseType(new TypeReference<>() {
+                })
+                .baseLog("MsVariableRecurringPaymentIntegrationService.getVariableRecurringPayment")
+                .build();
+
+        return httpClientService.getInternal(req);
+    }
+}
+

@@ -1,4 +1,4 @@
-# Default values for Prodigio Tech
+# Default values for QA-Engine-Pro Tech
 # This is YAML-formatted file.
 # Declare variablesto be passed intp your templates
 
@@ -49,3 +49,4 @@ envVars:
     value: ""
   - name: MS_TIMEOUT
     value: "10000"
+

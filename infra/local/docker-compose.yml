@@ -1,24 +1,24 @@
 services:
   postgres:
     image: postgres:16
-    container_name: api-scheduled-payment-service-db
+    container_name: qa-automation-engine-db
     environment:
-      POSTGRES_DB: api_immediate_payment_service_db
+      POSTGRES_DB: qa_automation_engine_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
       - "55432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d api_immediate_payment_service_db"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d qa_automation_engine_db"]
       interval: 5s
       timeout: 3s
       retries: 20
     volumes:
-      - pgdata_api-scheduled-payment-service:/var/lib/postgresql/data
+      - pgdata_qa-automation-engine:/var/lib/postgresql/data
 
   sonarqube:
     image: sonarqube:lts-community
-    container_name: api-scheduled-payment-service-sonarqube
+    container_name: qa-automation-engine-sonarqube
     profiles: ["sonar"]
     depends_on:
       sonar-db:
@@ -30,13 +30,13 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - sonarqube_data_api-scheduled-payment-service:/opt/sonarqube/data
-      - sonarqube_logs_api-scheduled-payment-service:/opt/sonarqube/logs
-      - sonarqube_extensions_api-scheduled-payment-service:/opt/sonarqube/extensions
+      - sonarqube_data_qa-automation-engine:/opt/sonarqube/data
+      - sonarqube_logs_qa-automation-engine:/opt/sonarqube/logs
+      - sonarqube_extensions_qa-automation-engine:/opt/sonarqube/extensions
 
   sonar-db:
     image: postgres:16
-    container_name: api-scheduled-payment-service-sonar-db
+    container_name: qa-automation-engine-sonar-db
     profiles: ["sonar"]
     environment:
       POSTGRES_USER: sonar
@@ -48,11 +48,12 @@ services:
       timeout: 3s
       retries: 20
     volumes:
-      - sonar_pgdata_api-scheduled-payment-service:/var/lib/postgresql/data
+      - sonar_pgdata_qa-automation-engine:/var/lib/postgresql/data
 
 volumes:
-  pgdata_api-scheduled-payment-service:
-  sonarqube_data_api-scheduled-payment-service:
-  sonarqube_logs_api-scheduled-payment-service:
-  sonarqube_extensions_api-scheduled-payment-service:
-  sonar_pgdata_api-scheduled-payment-service:
+  pgdata_qa-automation-engine:
+  sonarqube_data_qa-automation-engine:
+  sonarqube_logs_qa-automation-engine:
+  sonarqube_extensions_qa-automation-engine:
+  sonar_pgdata_qa-automation-engine:
+

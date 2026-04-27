@@ -1,0 +1,38 @@
+{
+    "paymentsRequest": {
+        "data": {
+            "payments": [
+                {
+                    "grantId": "8e65e3e5-2d5b-4a2a-9c1f-1f2e3d4c5b6a",
+                    "transactionType": "TEF_SCHEDULED_FIXED_AMOUNT",
+                    "debtorInstitutionId": "14",
+                    "debtorName": "JUAN PÉREZ",
+                    "debtorIdentification": "12.345.678-9",
+                    "debtorAccountType": "CHECKING",
+                    "debtorAccountNumber": "123456789",
+
+                    "creditorInstitutionId": "1",
+                    "creditorAccountNumber": "9876543210",
+                    "creditorAccountType": "CHECKING",
+                    "creditorName": "PROVEEDOR XYZ",
+                    "creditorIdentification": "11.222.333-4",
+
+                    "amount": 45000,
+                    "currency": "CLP",
+                    
+                    "requestedExecutionDateTime": "2025-11-15T15:00:00Z",
+                    
+                    "endToEndId": "E2E-PLAN-REC-000001",
+                    "remittanceInformation": "Cuota mensual",
+                    "requestDateTime": "2025-10-03T10:30:00Z"
+                }
+            ]
+        },
+        "links": {
+            "self": "/v1/PN/scheduled-payments"
+        },
+        "meta": {
+            "firstAvailableDateTime": "2025-10-03T10:30:00Z"
+        }
+    }
+}

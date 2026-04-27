@@ -1,49 +1,57 @@
-# api-scheduled-payment-service
+# Automated Testing & Quality Gate Framework
 
-## Requisitos
-- Java 21
-- Docker + Docker Compose
+A Senior-level automation engine for validating complex payment systems, ensuring contract compliance, security hardening, and performance standards.
 
-## Levantar infraestructura local (PostgreSQL)
+## Tech Stack
+- **Language:** Java 21
+- **Framework:** Spring Boot 3.x
+- **Testing:** JUnit 5, Karate DSL, Playwright
+- **Analysis:** JaCoCo (Coverage), SonarQube (Quality)
+- **Infra:** Docker & Docker Compose
+
+## Core Features
+- **Contract Testing:** Automated validation against OpenAPI 3.1 specifications.
+- **Security Gates:** Sanitization checks and vulnerability scanning integrated into CI.
+- **Performance Benchmarking:** SLA validation (< 3s response time).
+- **High Coverage:** Minimum 80% test coverage requirement.
+
+## Getting Started
+
+### Local Infrastructure (PostgreSQL)
 ```bash
 docker compose -f infra/local/docker-compose.yml up -d
 ```
 
-## Ejecutar servicio (perfil local)
+### Run Service (Local Profile)
 ```bash
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-## Swagger UI
-Si esta habilitado springdoc, se expone en:
-- `http://localhost:8080/swagger-ui.html`
+### Documentation (Swagger UI)
+Accessible at: `http://localhost:8080/swagger-ui.html`
 
-## OpenAPI (contrato)
-- `openapi/openapi.yaml`
+## Testing & Quality
 
-## Migraciones (Liquibase)
-- `liquibase/changelog.yaml`
-- `liquibase/changesets/*` (crear tus propios changesets; el template no incluye ejemplos ejecutables)
-
-## Tests
+### Run Unit & Integration Tests
 ```bash
 ./mvnw test
 ```
 
-## Coverage (JaCoCo)
+### Generate Coverage Report
 ```bash
 ./mvnw clean verify
 ```
-- XML report: `target/site/jacoco/jacoco.xml`
-- HTML report: `target/site/jacoco/index.html`
+Reports are available at `target/site/jacoco/index.html`.
 
-## Sonar local (opcional)
-1. Levantar SonarQube local con el profile `sonar`:
+### Static Analysis (Local)
+1. Start SonarQube:
 ```bash
 docker compose -f infra/local/docker-compose.yml --profile sonar up -d
 ```
-2. Generar token en `http://localhost:9000`.
-3. Ejecutar analisis:
+2. Run analysis:
 ```bash
-./mvnw clean verify sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.token=<TOKEN> -Dsonar.projectKey=api-scheduled-payment-service
+./mvnw clean verify sonar:sonar -Dsonar.projectKey=qa-automation-engine
 ```
+
+## CI/CD
+This project is configured with **GitHub Actions** for continuous integration and automated quality gates.
